@@ -1,19 +1,38 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
 import java.util.logging.Logger;
 
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
+
+
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -29,13 +48,17 @@ public class CommandBox extends UiPart<Region> {
 
     @FXML
     private TextField commandTextField;
+    private SuggestionProvider<String> provider;
 
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        provider = SuggestionProvider.create(getPossibleCommands());
+        new AutoCompletionTextFieldBinding<>(commandTextField, provider);
         historySnapshot = logic.getHistorySnapshot();
+
     }
 
     /**
@@ -108,6 +131,8 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            provider.clearSuggestions();
+            provider.addPossibleSuggestions(getPossibleCommands());
 
         } catch (CommandException | ParseException e) {
             initHistory();
@@ -146,6 +171,38 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    public HashSet<String> getPossibleCommands() {
+        HashSet<String> commands = new HashSet<>();
+        commands.add(AddCommand.COMMAND_WORD);
+        commands.add(AddCommand.COMMAND_WORD
+                + " " + CliSyntax.PREFIX_NAME
+                + " " + CliSyntax.PREFIX_PHONE
+                + " " + CliSyntax.PREFIX_EMAIL
+                + " " + CliSyntax.PREFIX_ADDRESS);
+        commands.add(ClearCommand.COMMAND_WORD);
+        commands.add(DeleteCommand.COMMAND_WORD);
+        commands.add(EditCommand.COMMAND_WORD);
+        commands.add(FindCommand.COMMAND_WORD);
+        commands.add(ListCommand.COMMAND_WORD);
+        commands.add(HelpCommand.COMMAND_WORD);
+        commands.add(SelectCommand.COMMAND_WORD);
+        commands.add(HistoryCommand.COMMAND_WORD);
+        commands.add(RedoCommand.COMMAND_WORD);
+
+        ObservableList<Tag> tagList = logic.getTagList();
+        for (Tag tag : tagList) {
+            commands.add("t/" + tag.tagName);
+        }
+
+        ObservableList<Person> personList = logic.getFilteredPersonList();
+        for (Person person : personList) {
+            commands.add(person.getName().toString());
+            commands.add(FindCommand.COMMAND_WORD + " "
+                    + person.getName().toString());
+        }
+        return commands;
     }
 
 }

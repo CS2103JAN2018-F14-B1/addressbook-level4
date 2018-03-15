@@ -373,6 +373,24 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Enhancement: Enhance `add` to parse optional fields
+
+==== Current Implementation
+
+==== Design Consideration
+
+===== Aspect:
+
+* **Alternative **
+
+=== Enhancement: Remark Command
+
+==== Current Implementation
+
+==== Design Consideration
+
+* **Alternative **
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

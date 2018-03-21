@@ -18,9 +18,21 @@ public class TagTest {
     }
 
     @Test
+    public void constructor_invalidTagColourName_throwsIllegalArgumentException() {
+        String invalidTagColourName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTagColourName));
+    }
+
+    @Test
     public void isValidTagName() {
         // null tag name
         Assert.assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
+    }
+
+    @Test
+    public void isValidTagColour() {
+        // null tag name
+        Assert.assertThrows(NullPointerException.class, () -> Tag.isValidTagColour(null));
     }
 
 }

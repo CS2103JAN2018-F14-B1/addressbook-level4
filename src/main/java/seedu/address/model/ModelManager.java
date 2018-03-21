@@ -86,6 +86,23 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTag(tag);
     }
 
+    @Override
+    public boolean setTagColour(Tag tag, String colour) {
+        ObservableList<Tag> allTags = addressBook.getTagList();
+        boolean isTagValid = false;
+        for (Tag t : allTags) {
+            if (t.getTagName().equals(tag.getTagName())) {
+                isTagValid = true;
+                break;
+            }
+        }
+        if (!isTagValid) {
+            return false;
+        }
+        addressBook.setTagColour(tag, colour);
+        return isTagValid;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

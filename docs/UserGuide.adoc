@@ -17,7 +17,11 @@ By: `F14-B1`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-My Team Manager (MTM) is for those who *prefer to use a desktop app for managing contacts*. More importantly, MTM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MTM can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+My Team Manager (MTM) is for *football team managers* who prefer to conduct management of their teams on their computers.
+This is a Command Line Interface (CLI) application where you, as a team manager, will be able to enter and organise details
+of the players you are managing. The players will be organised into their respective teams, and you can include details such
+as their positions and demerits, so that you can easily pick the lineup for matches. +
+Head to <<Quick Start>> to get started with My Team Manager!
 
 == Quick Start
 
@@ -57,6 +61,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+=== Autocomplete
+
+After typing in the first few characters of a command, pressing kbd:[tab] will fill in the rest of the item.
+
+To see parameters for a command, press tab after the whole command is typed in. Pressing tab again will remove the parameters.
+
+Text will turn red if the input has no parameters or if no matching command exists.
+
+If there are multiple possible commands for a given input, i.e. 'e' could be 'edit', 'exit', or 'export', then a dropdown box will appear with the possible commands. These can be navigated using mouse or arrow keys. Then, press enter to select the desired command.
+
 === Viewing help : `help`
 
 Format: `help`
@@ -65,15 +79,16 @@ Format: `help`
 
 Adds a person to the address book +
 Alias: `a` +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME  e/EMAIL  tm/TEAM [a/ADDRESS] [p/PHONE_NUMBER] [j/JERSEY_NUMBER] [s/SCORE] [po/POSITION] [r/REMARKS] [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A person can have any number of tags (including 0).
 
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Ronaldo p/92331322 e/ronaldo@soccer.com a/Portugal tm/Real Madrid j/17 s/999 po/Striker r/Always play him`
 
 === Listing all persons : `list`
 
@@ -83,7 +98,7 @@ Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+You may edit an existing player in the address book with the 'edit' command. +
 Alias: `e` +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
@@ -91,7 +106,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When you edit tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
@@ -104,7 +119,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 === Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+You can find a player whose names contain any of the given keywords with this command. +
 Alias: `f` +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -125,12 +140,12 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Should you want to delete a player from the address book, you may use this command. +
 Alias: `d` +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the player at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -139,82 +154,115 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd player in the address book.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st player in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a player : `select`
 
-Selects the person identified by the index number used in the last person listing. +
-Alias: `d` +
-Format: `select INDEX`
+Identified the player you're looking for and want to see more details about the player? MTM offers you the ability to view details of your specified player via an index shown in the current listing of players.
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+Format: `select INDEX` +
+Alias: `s`
 
-Examples:
+[NOTE]
+====
+The index refers to the index number shown in the most recent listing. +
+The index *must be a positive integer* `1, 2, 3, ...`
+====
 
+[TIP]
+.*Outcome*
+====
+Your selected player will have their details displayed on the details pane on MTM.
+====
+
+Here are a few valid examples on how you can use the `select` command:
+[NOTE]
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Displays the list of all players and selects the 2nd player in that list.
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Finds a player named Betsy and selects the 1st player in the results of the `find` command.
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Alias: `h` +
-Format: `history`
+Have you been extensively using MTM and in the midst of entering more commands, you could not remember what commands you have entered? MTM allows you to look at all your past commands that you have entered in reverse chronological order.
+
+Format: `history` +
+Alias: `h`
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+[TIP]
+.*Outcome*
+====
+A list of your previously entered command will be shown to you.
+====
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Alias: `u` +
-Format: `undo`
+Have you entered a wrong command or might have accidentally entered the wrong values to the specified fields to a command? +
+
+You don't have to worry, as MTM provides you with the command to undo most mistakes that you might have made. MTM will restore herself to the state before the previous _undoAble_ command was executed.
+
+Format: `undo` +
+Alias: `u`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+_undoAble_ commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
-Examples:
+[TIP]
+.*Outcome*
+====
+Commands that are _undoAble_ will be reversed and MTM will be in the state before the command was executed.
+====
+
+Here are a few valid examples on how you can use the `undo` command:
 
 * `delete 1` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` +
+Calling the `undo` command will reverse the `delete 1` command.
 
 * `select 1` +
 `list` +
 `undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+The `undo` command fails as there are no _undoAble_ commands executed previously.
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` +
+`undo` +
+Calling the first `undo` command will reverse the `clear` command, and the subsequent `undo` command will reverse the `delete 1` command.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
-Alias: `r` +
-Format: `redo`
+You accidentally called the `undo` command too many times and need a way to quickly reverse that? MTM allows you to redo the most recent `undo` command.
 
-Examples:
+Format: `redo` +
+Alias: `r`
+
+[TIP]
+.*Outcome*
+====
+Previously executed `undo` command will be reversed and MTM will be in its previous state.
+====
+
+Here are a few valid examples on how you can use the `redo` command:
 
 * `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` +
+`redo` +
+Calling the `undo` command will reverse the `delete 1` command and the subsequent `redo` command will reapply the `delete 1` command.
 
 * `delete 1` +
 `redo` +
@@ -222,33 +270,80 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+`undo` +
+`undo` +
+`redo` +
+`redo` +
+Calling the first `undo` command will reverse the `clear` command, and the subsequent `undo` command will reverse the `delete 1` command. +
+Calling the first `redo` command will reapply the `delete 1` command, and the subsequent `redo` command will reapply the `clear` command.
 // end::undoredo[]
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+You can clear all entries from the address book with the 'clear' command. +
 Alias: `c` +
 Format: `clear`
 
+=== Setting Colour of tags : `setTagColour`
+
+You can set the tags to a colour of your choice with the 'setColourTag' command. +
+Alias: `stc` +
+Format: `setTagColour`
+
+=== Sorting players by tag: `sort`
+
+You can sort the players by tags with the 'sort' command. +
+Alias: `stc` +
+Format: `setTagColour`
+
 === Exiting the program : `exit`
 
-Exits the program. +
+You can exit the program by entering the 'exit' command. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need to save anything manually as My Team Manager will save
+any data entered directly to the hard drive.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Noting down a remark for player: `remark`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+When you need to drop yourself a self-note with regards to a specific player you're managing, you can make a self-note
+of a specific player easily by giving the player a remark for you to remember by.
+
+Format: `remark INDEX [r/REMARK]` +
+Alias: `rm`
+
+[NOTE]
+By leaving out `r/REMARK`, the command acts as a remark removal.
+
+[TIP]
+.*Outcome*
+====
+Your specified player will either be given a new remark or have its existing remark removed.
+====
+
+Here are a few valid examples on how you can use the `remark` command:
+
+* `remark 1` +
+Removes the remark from the specified player at index 1.
+
+* `remark 5 r/MVP Player` +
+Give a remark to the specified player at index 5 with the remark "MVP Player".
+
+=== Creating a team: `create` `[Coming in v2.0]`
+
+=== Assigning player to teams: `assign` `[Coming in v2.0]`
+
+=== Scheduling trainings for team `schedule` `[Coming in v2.0]`
+
+=== Sending reminder emails to players: `send` `[Coming in v2.0]`
+
+=== Viewing other teams being managed: `view` `[Coming in v2.0]`
+
+=== Giving feedback to developers: `feedback` `[Coming in v2.0]`
+
+=== Giving demerit to players based on performance: `demerit` [Coming in v2.0]
 
 == FAQ
 
@@ -257,19 +352,58 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+[cols="^1s, >2m, >2m", options="header"]
+|===
+^|Command / Alias
+^|Parameter
+^|Example
+
+>|help
+|help
+d|Shows the user guide
+
+>|add / a
+|add n/NAME e/EMAIL tm/TEAM [p/PHONE_NUMBER] [a/ADDRESS] [j/JERSEY_NUMBER] [s/SCORE] [po/POSITION] [r/REMARKS] [t/TAG]...
+|add n/Ronaldo e/ronaldo@soccer.com tm/Real Madrid p/92331322 a/Portugal j/17 s/999 po/Striker r/Always play him /tfamous
+
+>|edit / e
+|edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...
+|edit 2 n/James Lee e/jameslee@example.com
+
+>|remark / rm
+|remark INDEX [r/REMARK]
+|remark 4 r/Gotta go faster
+
+>|delete / d
+|delete INDEX
+|delete 3
+
+>|list / l
+|list
+d|List all the players
+
+>|find / f
+|find KEYWORD [MORE_KEYWORDS]
+|find James Jake
+
+>|select / s
+|select INDEX
+|select 2
+
+>|clear / c
+|clear
+d|Removes all player's information in the application
+
+>|history / h
+|history
+d|Display the list of commands entered previously
+
+>|undo / u
+|undo
+d|Undo the previous command
+
+>|redo / r
+|redo
+d|Redo the previous command
+
+|===

@@ -49,4 +49,7 @@ public interface Model {
     /** Removes the given {@code tag} from all {@code Person}s. */
     void deleteTag(Tag tag);
 
+    /** sets the given {@code tag} to color. */
+    boolean setTagColour(Tag tag, String colour);
+
 }

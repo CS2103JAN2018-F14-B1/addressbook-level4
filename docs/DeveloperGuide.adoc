@@ -385,6 +385,39 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
+=== Autocomplete
+
+The autocomplete feature works by handling the Tab key pressed event, searching for any commands with matching prefix and returns one if found. The command strings are stored a Trie data structure, named CommandTrie, for optimal search.
+
+----
+public class CommandTrie {
+    String attemptAutoComplete (String input);
+    void insert (String input);
+    Set<String> getCommandSet();
+}
+----
+
+The trie is made up of node classes which only have three fields. The sibling field represents a character on the same level as the current one. The child represents a next possible letter. For example in the words edit and exit the node for 'd' would have a child 'i' and a sibling 'x'. 'x' would have a child 'i'.
+
+----
+public class Node {
+
+    private Node sibling;
+    private Node child;
+    private char key;
+    ...
+}
+
+----
+Upon the pressing of the tab key, the command box calls attemptAutoComplete, in the commandTrie class. This method will traverse the trie using the content of the command box.
+If the input has a character not present in the trie, then the attempt fails. If the trie parses through the input but reaches a node with a sibling option,
+it will attempt to provide the user with possible commands for a given input. In this case, a dropdown box will appear in the UI that lists the possible commands for the user.
+
+Upon finding a matching command, attemptAutoComplete returns it and replaces the text in the CommandLine. If the no matching command is found, the text is turned red.
+
+One class, command collection, is used to hold the set of commands and a map from each command word to the command usage. This is used by the trie to both construct the command trie and autocomplete from a command word to a command word and its usage. This static class simply contains a set of each command's command word that is statically initialized and used by the commandTrie class.
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
@@ -784,7 +817,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+=== Target user profile:
 
 * football team managers
 * has a need to manage a significant number of contacts
@@ -793,7 +826,38 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Exclusive application for management of footballers and football teams that provides an enhanced listing of footballers and convenient lookup on updated information of players.
+=== Value proposition:
+Exclusive application for management of footballers and football teams that provides an enhanced listing of footballers and convenient lookup on updated information of players.
+
+=== Feature Contribution
+* Codee +
+ ** Major - Revamp MTM’s whole GUI for ease of viewing teams and players’ details +
+ e.g. remove browser panel, add player details panel, change person card +
+ ** Minor - Command to set the colour of tags to colour of choice
+
+* Jordan
+ ** Major - Creation of Team and related functions +
+        e.g. assignment of players,
+        viewing of teams,
+        formation of team,
+        indicate and set upcoming match
+
+ ** Minor
+    *** Remark command
+    *** Enhanced add with optional field
+
+* Syafiq
+ ** Major
+    *** Create a new player class that contains more information about the players +
+ e.g. Position, Rating (0 - 5 Star),  Remarks +
+    *** Update add, edit ,list, sort to include these fields accordingly. +
+ ** Minor - Autocomplete command
+
+* Tianwei
+ ** Major - privacy
+    *** Set private field and passwords
+    *** Make accounts
+ ** Minor - Sorting players by different fields
 
 [appendix]
 == User Stories

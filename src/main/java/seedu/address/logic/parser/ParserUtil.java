@@ -165,4 +165,19 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String tagColour} into a {@code String ta}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code tag} is invalid.
+     */
+    public static String parseTagColour(String tagColour) throws IllegalValueException {
+        requireNonNull(tagColour);
+        String trimmedTagColour = tagColour.trim();
+        if (!trimmedTagColour.getClass().equals(String.class) ||  (trimmedTagColour.contains(" "))) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_COLOUR_CONSTRAINTS);
+        }
+        return trimmedTagColour;
+    }
 }

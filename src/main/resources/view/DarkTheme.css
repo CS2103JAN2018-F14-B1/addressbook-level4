@@ -350,7 +350,7 @@
 
 #tags .teal {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: "#5295a5";
 }
 
 #tags .red {
@@ -365,7 +365,7 @@
 
 #tags .blue {
     -fx-text-fill: white;
-    -fx-background-color: blue;
+    -fx-background-color: "#416399";
 }
 
 #tags .orange {
@@ -375,12 +375,12 @@
 
 #tags .brown {
     -fx-text-fill: white;
-    -fx-background-color: brown;
+    -fx-background-color: "#a86d2f";
 }
 
 #tags .green {
     -fx-text-fill: black;
-    -fx-background-color: green;
+    -fx-background-color: "#44936f";
 }
 
 #tags .pink {

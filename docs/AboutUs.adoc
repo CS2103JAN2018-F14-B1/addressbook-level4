@@ -12,11 +12,11 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 '''
 
 === Codee Ong
-image::[insert pic].jpg[width="150", align="left"]
+image::codeeo.jpg[width="150", align="left"]
 {empty}[https://github.com/codeeong[github]] [<<codeeong#, portfolio>>]
 
-Role: Developer
-Responsibilties:
+Role: Developer +
+Responsibilities: UI Component
 
 '''
 
@@ -25,24 +25,27 @@ image::jordanc.jpg[width="150", align="left"]
 {empty}[http://github.com/jordancjq[github]] [<<jordanchong#, portfolio>>]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Model Component
+
+* RemarkCommand
+* Enhance Add with Optional Parameters
 
 '''
 
 === Syafiq
-image::[insert pic].jpg[width="150", align="left"]
+image::syafiq.jpg[width="150", align="left"]
 {empty}[http://github.com/lithiumlkid[github]] [<<syafiq#, portfolio>>]
 
-Role: Developer +
-Responsibilities:
+Role: Head Developer +
+Responsibilities: Storage Component
 
 '''
 
 === Loh Tian Wei
-image::[insert pic].jpg[width="150", align="left"]
-{empty}[http://github.com/lohtianwei[github]] [<<tianwei#, portfolio>>]
+image::ltianwei.jpg[width="150", align="left"]
+{empty}[http://github.com/lohtianwei[github]] [<<lohtianwei#, portfolio>>]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: Logic Component
 
 '''

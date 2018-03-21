@@ -156,6 +156,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      *
+     * Sets the colour of {@code tag}.
+     */
+    public void setTagColour(Tag tag, String colour) {
+        for (Tag t : tags) {
+            if (t.getTagName().equals(tag.getTagName())) {
+                t.changeTagColour(colour);
+            }
+        }
+    }
+
+    /**
+     *
      * Removes {@code tag} from all persons in this {@code AddressBook}.
      */
     public void removeTag(Tag tag) {

@@ -139,6 +139,12 @@ public class AddCommandTest {
         public void deleteTag(Tag tag) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public boolean setTagColour(Tag tag, String colour) {
+            fail("This method should not be called.");
+            return false;
+        }
     }
 
     /**

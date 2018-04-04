@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.util.List;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 
+import seedu.address.commons.events.ui.DeselectTeamEvent;
+import seedu.address.commons.events.ui.HighlightSelectedTeamEvent;
+import seedu.address.commons.events.ui.ShowNewTeamNameEvent;
 import seedu.address.model.team.Team;
 
 /**
@@ -27,6 +32,7 @@ public class TeamDisplay extends UiPart<Region> {
         this.teamList = teamList;
         initTeams();
         getTeams();
+        registerAsAnEventHandler(this);
     }
 
     /**
@@ -47,6 +53,40 @@ public class TeamDisplay extends UiPart<Region> {
             listOfTeams.add(t.getTeamName().toString());
         }
         return listOfTeams;
+    }
+
+    @Subscribe
+    private void handleShowNewTeamEvent(ShowNewTeamNameEvent event) {
+        Label newTeamLabel = new Label(event.teamName);
+        newTeamLabel.getStyleClass();
+        teams.getChildren().add(newTeamLabel);
+    }
+
+    @Subscribe
+    private void handleHighlightSelectedTeamEvent(HighlightSelectedTeamEvent event) {
+        for (int i = 0; i < teamList.size(); i++) {
+            if (event.teamName.equals(teamList.get(i).getTeamName().toString())) {
+                teams.getChildren().remove(i);
+                Label newTeamLabel = new Label(event.teamName);
+                newTeamLabel.getStyleClass().add("selected");
+                teams.getChildren().add(i, newTeamLabel);
+            } else {
+                teams.getChildren().remove(i);
+                Label newTeamLabel = new Label(teamList.get(i).getTeamName().toString());
+                newTeamLabel.getStyleClass();
+                teams.getChildren().add(i, newTeamLabel);
+            }
+        }
+    }
+
+    @Subscribe
+    private void handleDeselectTeamEvent(DeselectTeamEvent event) {
+        for (int i = 0; i < teamList.size(); i++) {
+            teams.getChildren().remove(i);
+            Label newTeamLabel = new Label(teamList.get(i).getTeamName().toString());
+            newTeamLabel.getStyleClass();
+            teams.getChildren().add(i, newTeamLabel);
+        }
     }
 }
 

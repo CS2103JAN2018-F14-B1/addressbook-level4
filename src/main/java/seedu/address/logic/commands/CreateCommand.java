@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowNewTeamNameEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.team.Team;
 import seedu.address.model.team.exceptions.DuplicateTeamException;
@@ -44,7 +46,7 @@ public class CreateCommand extends UndoableCommand {
         } catch (DuplicateTeamException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TEAM);
         }
-
+        EventsCenter.getInstance().post(new ShowNewTeamNameEvent(toCreate.getTeamName().toString()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate));
     }
 

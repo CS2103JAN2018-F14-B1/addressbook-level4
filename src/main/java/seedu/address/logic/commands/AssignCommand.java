@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEAM_NAME;
+import static seedu.address.logic.parser.ParserUtil.UNSPECIFIED_FIELD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,10 @@ public class AssignCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "assign";
     public static final String COMMAND_ALIAS = "at";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a person or a group of person to a team "
-            + "by the index number used in the last person listing.\n"
-            + "Team of the person will be updated and will be added to team.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a player or a group of players to a team "
+            + "by the index number used in the last player listing.\n"
+            + "Team of the player will be updated and will be added to team.\n"
+            + "Only 1 team can be assigned to each player.\n"
             + "Parameters: "
             + PREFIX_TEAM_NAME + "TEAM_NAME "
             + PREFIX_INDEX + "INDEX (must be a positive integer) "
@@ -41,8 +43,10 @@ public class AssignCommand extends UndoableCommand {
             + PREFIX_INDEX + "INDEX "
             + "[INDEX]...";
 
-    public static final String MESSAGE_SUCCESS = "Person assigned to team";
+    public static final String MESSAGE_SUCCESS = "Players successfully assigned to team.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the team";
+    public static final String MESSAGE_TEAM_TO_TEAM_SUCCESS = "\n%1$s has been assigned from %2$s to %3$s.";
+    public static final String MESSAGE_UNSPECIFIED_TEAM_SUCCESS = "\n%1$s has been assigned from to %2$s.";
 
     private final TeamName targetTeam;
     private final List<Index> targetIndexes;
@@ -62,9 +66,18 @@ public class AssignCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
+        String successfulPlayerAssignedMessage = new String();
         try {
             for (Person person : personsToAssign) {
                 model.assignPersonToTeam(person, targetTeam);
+                if (person.getTeamName().toString().equals(UNSPECIFIED_FIELD)) {
+                    successfulPlayerAssignedMessage += String.format(MESSAGE_UNSPECIFIED_TEAM_SUCCESS,
+                            person.getName().toString(), targetTeam.toString());
+                } else {
+                    successfulPlayerAssignedMessage += String.format(MESSAGE_TEAM_TO_TEAM_SUCCESS,
+                            person.getName().toString(), person.getTeamName().toString(), targetTeam.toString());
+                }
+
             }
             model.updateFilteredPersonList(targetTeam);
         } catch (DuplicatePersonException e) {
@@ -74,7 +87,7 @@ public class AssignCommand extends UndoableCommand {
         }
 
         EventsCenter.getInstance().post(new HighlightSelectedTeamEvent(targetTeam.toString()));
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + successfulPlayerAssignedMessage);
     }
 
     @Override

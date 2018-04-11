@@ -29,6 +29,7 @@ public class AssignCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a player or a group of players to a team "
             + "by the index number used in the last player listing.\n"
+            + "You can also unassign a player by leaving out TEAM_NAME as an input.\n"
             + "Team of the player will be updated and will be added to team.\n"
             + "Only 1 team can be assigned to each player.\n"
             + "Parameters: "
@@ -36,10 +37,10 @@ public class AssignCommand extends UndoableCommand {
             + PREFIX_INDEX + "INDEX (must be a positive integer) "
             + "[INDEX]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TEAM_NAME + "Arsenal "
+            + "Arsenal "
             + PREFIX_INDEX + "1 2";
 
-    public static final String MESSAGE_PARAMETERS = PREFIX_TEAM_NAME + "TEAM_NAME "
+    public static final String MESSAGE_PARAMETERS = "[TEAM_NAME] "
             + PREFIX_INDEX + "INDEX "
             + "[INDEX]...";
 

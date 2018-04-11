@@ -20,6 +20,8 @@ public class ChangeThemeCommand extends Command {
             + "Parameters: THEME (must be either Light, or Dark)\n"
             + "Examples: changeTheme Light, cte Dark";
 
+    public static final String MESSAGE_PARAMETERS = "THEME (Light or Dark)";
+
     public static final String MESSAGE_THEME_SUCCESS = "Theme updated to: %1$s";
 
     private final String theme;

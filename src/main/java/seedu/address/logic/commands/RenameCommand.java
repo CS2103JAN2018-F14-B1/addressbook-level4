@@ -31,7 +31,7 @@ public class RenameCommand extends UndoableCommand {
             + " Arsenal "
             + PREFIX_TEAM_NAME + "Neo Arsenal";
 
-    public static final String MESSAGE_PARAMETERS = "TEAM_NAME"
+    public static final String MESSAGE_PARAMETERS = "TEAM_NAME "
             + PREFIX_TEAM_NAME + "RENAME_TEAM_NAME";
 
     public static final String MESSAGE_RENAME_SUCCESS = "\"%1$s\" is renamed to \"%2$s\".";

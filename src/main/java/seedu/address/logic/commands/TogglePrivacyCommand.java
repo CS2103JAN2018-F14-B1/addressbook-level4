@@ -43,15 +43,22 @@ public class TogglePrivacyCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles the field privacy of the person"
             + " identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_PHONE + "]"
-            + "[" + PREFIX_EMAIL + "]"
-            + "[" + PREFIX_REMARK + "]"
-            + "[" + PREFIX_RATING + "]"
+            + "[" + PREFIX_PHONE + "] "
+            + "[" + PREFIX_EMAIL + "] "
+            + "[" + PREFIX_REMARK + "] "
+            + "[" + PREFIX_RATING + "] "
             + "[" + PREFIX_ADDRESS + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + " "
             + PREFIX_EMAIL + " "
             + PREFIX_ADDRESS;
+
+    public static final String MESSAGE_PARAMETERS = "INDEX "
+            + "[" + PREFIX_PHONE + "] "
+            + "[" + PREFIX_EMAIL + "] "
+            + "[" + PREFIX_REMARK + "] "
+            + "[" + PREFIX_RATING + "] "
+            + "[" + PREFIX_ADDRESS + "]";
 
     public static final String MESSAGE_SUCCESS = "Changed the Privacy of the Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";

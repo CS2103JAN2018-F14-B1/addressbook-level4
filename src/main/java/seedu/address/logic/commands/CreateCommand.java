@@ -16,7 +16,7 @@ public class CreateCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "create";
     public static final String COMMAND_ALIAS = "ct";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Creates a team in MTM. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a team in MTM. "
             + "Parameters: "
             + "TEAM_NAME\n"
             + "Example: " + COMMAND_WORD + " "

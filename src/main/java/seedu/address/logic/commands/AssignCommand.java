@@ -28,6 +28,7 @@ public class AssignCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a player or a group of players to a team "
             + "by the index number used in the last player listing.\n"
+            + "You can also unassign a player by leaving out TEAM_NAME as an input.\n"
             + "Team of the player will be updated and will be added to team.\n"
             + "Only 1 team can be assigned to each player.\n"
             + "Parameters: "
